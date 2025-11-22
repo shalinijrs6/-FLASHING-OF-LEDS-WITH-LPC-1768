@@ -1,16 +1,16 @@
 # FLASHING-OF-LEDS-WITH-LPC-1768
 
-# AIM: 
-   To interface and toggle the led with ARM LPC 1768 microprocessor           
+## AIM: 
+To interface and toggle the led with ARM LPC 1768 microprocessor           
            
-# COMPONENTS REQUIRED:
+## COMPONENTS REQUIRED:
 ##  HARDWARE:
-ARM LPC1768
-LED
+- ARM LPC1768
+- LED
 ## SOFTWARE:
-KEIL MICRO VISION 4.0 IDE
+- KEIL MICRO VISION 4.0 IDE
 
-# PROCEDURE:
+## PROCEDURE:
 
 
 ⮚	Open the Keil software and select the New uvision project from Project Menu as shown below.
@@ -34,24 +34,62 @@ Command: fromelf --bin projectname.axf --output filename.bin
 ⮚	.Bin file is generated after a rebuild.
 ⮚	Check the project folder for the generated .Bin file.
 
-# ADD FILES:
+## ADD FILES:
 Target1:
 Source group1:
 Startuplpc17xx.s, main.c (t), delay.c (t), systemlpc17xx.c (t), gpio.c (t)
+
 Header:
 Delay.h, stdutils.h, gpioi.h
 
-# PIN DIAGRAM :
- 
-
-# CIRCUIT DIAGRAM:
- 
- 
-# PROGRAM:
+## PIN DIAGRAM :
+<img width="897" height="587" alt="image" src="https://github.com/user-attachments/assets/ea17e608-22ee-4bbf-86e0-c2d56b9004ef" />
 
 
  
-# Output:
+
+## CIRCUIT DIAGRAM:
+<img width="866" height="500" alt="image" src="https://github.com/user-attachments/assets/2312ba49-f0cd-44a9-95af-94dc041d1246" />
+
+ 
+ 
+## PROGRAM:
+```
+#include <lpc17xx.h>
+#include "delay.h"       //User defined library which contains the delay routines
+#include "gpio.h"
+
+#define LED P1_29        // Led is connected to P1.29
+
+/* start the main program */
+int main()
+{
+    SystemInit();                          //Clock and PLL configuration
+    GPIO_PinFunction(LED,PINSEL_FUNC_0);   // Configure Pin for Gpio
+    GPIO_PinDirection(LED,OUTPUT);         // Configure the pin as OUTPUT
+    GPIO_PinWrite(LED,LOW);
+
+    while(1)
+    {
+        /* Turn On all the leds and wait for 100ms */
+        GPIO_PinWrite(LED,HIGH);           // Make all the Port pin as high
+        DELAY_ms(100);
+
+        GPIO_PinWrite(LED,LOW);            // Make all the Port pin as low
+        DELAY_ms(100);
+    }
+}
+```
+
+
+
+
+ 
+## Output:
+<img width="960" height="1280" alt="image" src="https://github.com/user-attachments/assets/9b402083-1e23-4124-9948-232704f2ea3f" />
+
+https://github.com/user-attachments/assets/fcd4138a-171b-4537-9fa6-fadb6d296541
+
 
 
 
